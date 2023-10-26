@@ -111,12 +111,6 @@ class ProductResource extends Resource
             ->columns([
                 TextColumn::make('brand.name')->searchable(),
                 TextColumn::make('name')->searchable(),
-                // TextColumn::make('qty')
-                //     ->searchable()
-                //     ->state(function (Product $record): float {
-                //         $item = PurchaseItem::where('product_id', $record->id)->sum('qty');
-                //         return $item+$record->qty;
-                //     }),
                 TextColumn::make('updated_at')->searchable(),
             ])
             ->filters([
