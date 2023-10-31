@@ -7,12 +7,14 @@ use App\Filament\Resources\UserResource\Pages\CreateUser;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
 use Filament\Pages\Page;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -38,7 +40,6 @@ class UserResource extends Resource
                         ->email()
                         ->required()
                         ->maxLength(255),
-                    Forms\Components\DateTimePicker::make('email_verified_at'),
                     Forms\Components\TextInput::make('password')
                         ->password()
                         ->dehydrateStateUsing(fn ($state) => Hash::make($state))
@@ -46,12 +47,7 @@ class UserResource extends Resource
                         ->required(fn (Page $livewire) => ($livewire instanceof CreateUser))
                         ->maxLength(255),
                     Select::make('roles')
-                        ->multiple()
                         ->relationship('roles', 'name')
-                        ->preload(),
-                    Select::make('permissions')
-                        ->multiple()
-                        ->relationship('permissions', 'name')
                         ->preload(),
                 ])->columns(2)
 
@@ -83,6 +79,7 @@ class UserResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                DeleteAction::make()
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

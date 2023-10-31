@@ -65,11 +65,9 @@ class IndexOrder extends Component
             $order->update();
             $sale = new Sale();
             $sale->order_id = $productId;
+            $sale->sale_code = 'INV-'.str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
             $sale->save();
             $this->hideDescription = true;
-
-
-
             return redirect()->back();
         }
     }

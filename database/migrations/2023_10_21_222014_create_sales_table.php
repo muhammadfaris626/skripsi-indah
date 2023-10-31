@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->foreignId('order_id')->constrained()->cascadeOnDelete();
+            $table->string('sale_code');
             $table->integer('awaiting')->default(0);
             $table->integer('processed')->default(0);
             $table->integer('shipping')->default(0);
