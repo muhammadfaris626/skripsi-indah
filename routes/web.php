@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PDFController;
 use App\Livewire\Dashboard\IndexDashboard;
 use App\Livewire\Order\IndexOrder;
 use App\Livewire\Product\DetailProduct;
@@ -17,3 +18,5 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
         Route::get('/order/{id}', IndexOrder::class)->name('detail-order');
     });
 });
+
+Route::get('/{record}/pdf', [PDFController::class, 'download'])->name('sale.pdf.download');

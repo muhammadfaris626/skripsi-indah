@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\SaleResource\Pages;
 use App\Filament\Resources\SaleResource\RelationManagers;
 use App\Models\Sale;
+use Filament\Tables\Actions\Action;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -55,6 +56,14 @@ class SaleResource extends Resource
             ])
             ->actions([
                 // Tables\Actions\EditAction::make(),
+                Action::make('Download')
+                    ->icon('heroicon-m-arrow-down-tray')
+                    ->color('info')
+                    ->url(fn (Sale $record) => route('sale.pdf.download', $record))
+                    ->openUrlInNewTab(),
+                    // ->url(fn(Sale $record) => route('download.evaluation', $record))->openUrlInNewTab(),
+                Tables\Actions\ViewAction::make(),
+                Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
