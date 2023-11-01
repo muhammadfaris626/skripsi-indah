@@ -65,7 +65,8 @@ class IndexOrder extends Component
             $order->update();
             $sale = new Sale();
             $sale->order_id = $productId;
-            $sale->sale_code = 'INV-'.str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
+            $sale->invoice_code = str_pad(mt_rand(0, 99999), 5, '0', STR_PAD_LEFT);
+            $sale->invoice_date = now();
             $sale->save();
             $this->hideDescription = true;
             return redirect()->back();

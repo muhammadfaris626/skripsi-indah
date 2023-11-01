@@ -364,12 +364,12 @@
             </p>
         @endif
 
-        <p>
+        {{-- <p>
             {{ trans('invoices::invoice.amount_in_words') }}: {{ $invoice->getTotalAmountInWords() }}
-        </p>
-        <p>
+        </p> --}}
+        {{-- <p>
             {{ trans('invoices::invoice.pay_until') }}: {{ $invoice->getPayUntilDate() }}
-        </p>
+        </p> --}}
 
         <script type="text/php">
             if (isset($pdf) && $PAGE_COUNT > 1) {

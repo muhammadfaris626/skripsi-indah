@@ -10,7 +10,7 @@ class Sale extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['order_id', 'awaiting', 'processed', 'shipping', 'delivered'];
+    protected $fillable = ['order_id', 'invoice_code', 'awaiting', 'processed', 'shipping', 'delivered', 'invoice_date'];
 
     public function order(): BelongsTo {
         return $this->belongsTo(Order::class, 'order_id');

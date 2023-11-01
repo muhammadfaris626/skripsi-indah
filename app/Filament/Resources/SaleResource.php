@@ -56,8 +56,8 @@ class SaleResource extends Resource
             ])
             ->actions([
                 // Tables\Actions\EditAction::make(),
-                Action::make('Download')
-                    ->icon('heroicon-m-arrow-down-tray')
+                Action::make('Print')
+                    ->icon('heroicon-m-printer')
                     ->color('info')
                     ->url(fn (Sale $record) => route('sale.pdf.download', $record))
                     ->openUrlInNewTab(),
