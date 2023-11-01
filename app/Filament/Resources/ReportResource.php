@@ -2,11 +2,11 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\SaleResource\Pages;
-use App\Filament\Resources\SaleResource\RelationManagers;
+use App\Filament\Resources\ReportResource\Pages;
+use App\Filament\Resources\ReportResource\RelationManagers;
 use App\Models\Sale;
-use Filament\Tables\Actions\Action;
 use Filament\Forms;
+use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -17,9 +17,10 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class SaleResource extends Resource
+class ReportResource extends Resource
 {
     protected static ?string $model = Sale::class;
+    protected static ?string $navigationLabel = 'Reports';
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -39,31 +40,27 @@ class SaleResource extends Resource
                 TextColumn::make('order.productSpecColorItem.productSpecItem.product.name')->label('Product')->searchable(),
                 TextColumn::make('order.productSpecColorItem.productSpecItem.ram')->label('RAM')->searchable(),
                 TextColumn::make('order.productSpecColorItem.productSpecItem.internal_memory')->label('Internal Memory')->searchable(),
-                ToggleColumn::make('awaiting'),
-                ToggleColumn::make('processed'),
-                ToggleColumn::make('shipping'),
-                ToggleColumn::make('delivered'),
+                TextColumn::make('invoice_date')->dateTime()
             ])
             ->filters([
-                Filter::make('awaiting')
-                    ->query(fn (Builder $query): Builder => $query->where('awaiting', true)),
-                Filter::make('processed')
-                    ->query(fn (Builder $query): Builder => $query->where('awaiting', true)),
-                Filter::make('shipping')
-                    ->query(fn (Builder $query): Builder => $query->where('awaiting', true)),
-                Filter::make('delivered')
-                    ->query(fn (Builder $query): Builder => $query->where('awaiting', true)),
+                Filter::make('created_at')
+                    ->form([
+                        DatePicker::make('from'),
+                        DatePicker::make('to'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when(
+                                $data['from'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('invoice_date', '>=', $date),
+                            )
+                            ->when(
+                                $data['to'],
+                                fn (Builder $query, $date): Builder => $query->whereDate('invoice_date', '<=', $date),
+                            );
+                    })
             ])
             ->actions([
-                // Tables\Actions\EditAction::make(),
-                Action::make('Print')
-                    ->icon('heroicon-m-printer')
-                    ->color('info')
-                    ->url(fn (Sale $record) => route('sale.pdf.download', $record))
-                    ->openUrlInNewTab(),
-                    // ->url(fn(Sale $record) => route('download.evaluation', $record))->openUrlInNewTab(),
-                // Tables\Actions\ViewAction::make(),
-                // Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -82,9 +79,9 @@ class SaleResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListSales::route('/'),
-            'create' => Pages\CreateSale::route('/create'),
-            'edit' => Pages\EditSale::route('/{record}/edit'),
+            'index' => Pages\ListReports::route('/'),
+            'create' => Pages\CreateReport::route('/create'),
+            'edit' => Pages\EditReport::route('/{record}/edit'),
         ];
     }
 }
