@@ -57,7 +57,7 @@ class ProductResource extends Resource
                             '32GB' => '32GB',
                             '64GB' => '64GB',
                             '128GB' => '128GB',
-                            '254GB' => '254GB',
+                            '254GB' => '256GB',
                             '512GB' => '512GB',
                             '1TB' => '1TB',
                             '2TB' => '2TB',
@@ -67,7 +67,7 @@ class ProductResource extends Resource
                             '32GB' => '32GB',
                             '64GB' => '64GB',
                             '128GB' => '128GB',
-                            '254GB' => '254GB',
+                            '254GB' => '256GB',
                             '512GB' => '512GB',
                             '1TB' => '1TB',
                             '2TB' => '2TB',
@@ -77,6 +77,7 @@ class ProductResource extends Resource
                         Section::make('Color Specification')->schema([
                             Repeater::make('productSpecColorItems')->label('Color Product')->relationship()->schema([
                                 Select::make('color')
+                                ->required()
                                 ->options([
                                     'red' => 'Red',
                                     'white' => 'White',
