@@ -2,31 +2,25 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="overflow-hidden sm:rounded-lg">
             @if(count($products) == 0)
-
             @else
                 <section class="text-gray-600 body-font">
-                    <div class="grid grid-cols-3 gap-3">
-                        <div class="col-span-2">
-                            <h1 class="text-4xl font-extrabold leading-none tracking-tight text-gray-900 dark:text-white">Products</h1>
-                        </div>
-                        <div>
-                            {{-- <input type="text" wire:model="search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="Search Product"> --}}
-                        </div>
-                    </div>
-                    <div class="container mx-auto mt-10">
-                        <div class="flex flex-wrap -m-4">
+                    <div class="container px-5 py-24 mx-auto">
+                        <div class="flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4">
                             @foreach ($products as $v)
-                                <a href="{{ route('detail-product', $v->id) }}">
-                                    <div class="lg:w-1/4 md:w-1/2 p-4 w-full">
-                                        <p class="block relative rounded overflow-hidden">
-                                            <img alt="ecommerce" class="object-cover object-center w-full h-full block" src="{{ asset($v->product_image[0]) }}">
-                                        </p>
-                                        <div class="mt-4">
-                                            <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">{{ Str::upper($v->brand->name) }}</h3>
-                                            <h2 class="text-gray-900 title-font text-lg font-medium">{{ Str::upper($v->name) }}</h2>
-                                        </div>
+                                <div class="p-4 md:w-1/3 sm:mb-0 mb-6">
+                                    <div class="rounded-lg h-64 overflow-hidden">
+                                        <img alt="content" class="object-cover object-center h-full w-full" src="{{ asset("storage/".$v->product_image[0]) }}">
                                     </div>
-                                </a>
+                                    <div class="mt-4">
+                                        <h3 class="text-gray-500 text-xs tracking-widest title-font mb-1">{{ Str::upper($v->brand->name) }}</h3>
+                                        <h2 class="text-xl font-medium title-font text-gray-900 mt-5">{{ Str::upper($v->name) }}</h2>
+                                    </div>
+                                    <a class="text-indigo-500 inline-flex items-center mt-3" href="{{ route('detail-product', $v->id) }}">LIHAT
+                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+                                        <path d="M5 12h14M12 5l7 7-7 7"></path>
+                                        </svg>
+                                    </a>
+                                </div>
                             @endforeach
                         </div>
                     </div>
