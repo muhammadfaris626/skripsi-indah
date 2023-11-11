@@ -49,6 +49,7 @@ class ProductResource extends Resource
                         TextInput::make('chipset')->required(),
                         Select::make('ram')->label('RAM')->options([
                             '4GB' => '4GB',
+                            '6GB' => '6GB',
                             '8GB' => '8GB',
                             '12GB' => '12GB',
                             '16GB' => '16GB',
