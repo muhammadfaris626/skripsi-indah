@@ -82,6 +82,9 @@ class ProductResource extends Resource
                                     'white' => 'White',
                                     'black' => 'Black',
                                     'blue' => 'Blue',
+                                    'grey' => 'Grey',
+                                    'green' => 'Green',
+                                    'yellow' => 'Yellow'
                                 ]),
                                 TextInput::make('qty')->numeric()->label('Quantity'),
                                 TextInput::make('selling_price')->numeric(),
