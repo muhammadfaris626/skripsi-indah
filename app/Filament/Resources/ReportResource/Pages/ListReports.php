@@ -16,4 +16,12 @@ class ListReports extends ListRecords
             // Actions\CreateAction::make(),
         ];
     }
+
+    public function getHeading(): string
+    {
+        return __('Reports');
+    }
+
+
+
 }
