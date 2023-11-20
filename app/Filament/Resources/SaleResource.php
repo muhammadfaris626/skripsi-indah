@@ -87,4 +87,8 @@ class SaleResource extends Resource
             'edit' => Pages\EditSale::route('/{record}/edit'),
         ];
     }
+    public static function getLabel(): ?string
+    {
+        return "Penjualan";
+    }
 }
